@@ -1,0 +1,12 @@
+apply plugin: "java"
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+dependencies {
+    compile project(':libGdxLib')
+    implementation files('libs/kryo-2.23.1-SNAPSHOT-all-debug.jar')
+    implementation files('libs/kryonet-9-7-14.jar')
+    implementation files('libs/objenesis-2.1.jar')
+
+}
+
+sourceSets.main.java.srcDirs = [ "src/" ]
