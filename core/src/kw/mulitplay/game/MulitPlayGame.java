@@ -48,7 +48,8 @@ public class MulitPlayGame extends Game {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(245.0f/255.0f,238f/255.0f,228.0f/255.0f,1);
+//        Gdx.gl.glClearColor(245.0f/255.0f,238f/255.0f,228.0f/255.0f,1);
+        Gdx.gl.glClearColor(0f,0f,0f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render();
     }

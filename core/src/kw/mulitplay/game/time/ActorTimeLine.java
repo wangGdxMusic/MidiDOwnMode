@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
 
+import kw.mulitplay.game.MapKeySound;
+import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.group.PianoKey;
 import kw.mulitplay.game.group.PianoView;
@@ -42,6 +44,7 @@ public class ActorTimeLine {
                         System.out.println(getY());
                         timeTemp += delta;
                         MidiInstruments.noteOn(note.getKey());
+                        System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 21)+""));
                         if (pianoKey!=null){
                             pianoKey.touchDownKey();
                         }
@@ -53,6 +56,7 @@ public class ActorTimeLine {
                     if (timeTemp>=endTime - startTime){
                         vla = false;
                         if (pianoKey!=null){
+                            System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 21)+""));
                             pianoKey.finishTouchi();
                         }
                         MidiInstruments.noteOff(note.getKey());
@@ -85,8 +89,14 @@ public class ActorTimeLine {
         }
     }
 
-    public void moveDown(){
-        image.setY(image.getY() - 3);
+    private float moveDistance;
+
+    public void setMoveDistance(float moveDistance){
+        this.moveDistance = moveDistance;
+    }
+
+    public void moveDown(float delta){
+        image.setY(image.getY() - moveDistance * delta);
     }
 
     public boolean isUp(){

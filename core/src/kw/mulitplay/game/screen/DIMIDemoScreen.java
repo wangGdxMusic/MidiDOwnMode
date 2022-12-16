@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 
@@ -63,7 +64,7 @@ public class DIMIDemoScreen extends BaseScreen {
                         row();
                     }
             }},new ScrollPane.ScrollPaneStyle());
-            stage.addActor(pane);
+//            stage.addActor(pane);
             pane.setSize(Constant.width,Constant.height);
 
             if (Constant.instrument!=null) {
@@ -110,9 +111,11 @@ public class DIMIDemoScreen extends BaseScreen {
                 }
             }
         };
-        srollPanel.setDebug(true);
+//        srollPanel.setDebug(true);
         float height= 0;
         HashMap<Integer, PianoKey> pos = view.getPos();
+        float maxHeight = 0;
+        float maxTime = 0;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             Image image = actorTimeLine.getImage();
             image.setY(actorTimeLine.getStartTime()*200+300);
@@ -123,6 +126,13 @@ public class DIMIDemoScreen extends BaseScreen {
             PianoKey vector2 = pos.get(actorTimeLine.getNote().getKey());
             actorTimeLine.setPianoKey(vector2);
             image.setX(vector2.getX());
+            maxHeight = Math.max(image.getY(Align.top),maxHeight);
+            maxTime = Math.max(maxTime,actorTimeLine.getEndTime());
+        }
+        System.out.println(maxHeight +"  "+ maxTime);
+        float v = maxHeight / maxTime;
+        for (ActorTimeLine actorTimeLine : actorTimeLines) {
+            actorTimeLine.setMoveDistance(v);
         }
         srollPanel.setSize(Constant.width,500);
         stage.addActor(srollPanel);
@@ -159,7 +169,7 @@ public class DIMIDemoScreen extends BaseScreen {
         super.render(delta);
         timer +=delta;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
-            actorTimeLine.moveDown();
+            actorTimeLine.moveDown(delta);
         }
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             if (actorTimeLine.getStatus()==2){

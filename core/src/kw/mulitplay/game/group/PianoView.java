@@ -122,7 +122,7 @@ public class PianoView extends Group {
                 font = AssetLoadFile.getBR40();
             }
         });
-        addActor(touchDownKeyLeft);
+//        addActor(touchDownKeyLeft);
         touchDownKeyLeft.setAlignment(Align.center);
         touchDownKeyLeft.setFontScale(5);
         touchDownKeyRight = new Label("",new Label.LabelStyle(){
@@ -130,7 +130,7 @@ public class PianoView extends Group {
                 font = AssetLoadFile.getBR40();
             }
         });
-        addActor(touchDownKeyRight);
+//        addActor(touchDownKeyRight);
         touchDownKeyRight.setAlignment(Align.center);
         touchDownKeyRight.setFontScale(5);
 
