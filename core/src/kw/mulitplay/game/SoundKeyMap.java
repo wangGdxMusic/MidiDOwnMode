@@ -190,11 +190,50 @@ public class SoundKeyMap {
         indexToAG.put("85",   "a4");
         indexToAG.put("87",   "b4");
         indexToAG.put("88",   "c5");
+
+
+        indexToAG.put("2",               "A2+"            );
+        indexToAG.put("5",               "C1+"            );
+        indexToAG.put("7",               "D1+"            );
+        indexToAG.put("10",               "F1+"            );
+        indexToAG.put("12",               "G1+"            );
+        indexToAG.put("14",               "A1+"            );
+        indexToAG.put("17",               "C+"             );
+        indexToAG.put("19",               "D+"             );
+        indexToAG.put("22",               "F+"             );
+        indexToAG.put("24",               "G+"             );
+        indexToAG.put("26",               "A+"             );
+        indexToAG.put("29",               "c+"             );
+        indexToAG.put("31",               "d+"            );
+        indexToAG.put("34",               "f+"             );
+        indexToAG.put("36",               "g+"             );
+        indexToAG.put("38",               "a+"             );
+        indexToAG.put("41",               "c1+"          );
+        indexToAG.put("43",               "d1+"          );
+        indexToAG.put("46",               "f1+"          );
+        indexToAG.put("48",               "g1+"          );
+        indexToAG.put("50",               "a1+"            );
+        indexToAG.put("53",               "c2+"            );
+        indexToAG.put("55",               "d2+"            );
+        indexToAG.put("58",               "f2+"            );
+        indexToAG.put("60",               "g2+"           );
+        indexToAG.put("62",               "a2+"           );
+        indexToAG.put("65",               "c3+"           );
+        indexToAG.put("67",               "d3+"           );
+        indexToAG.put("70",             "f3+"            );
+        indexToAG.put("72",             "g3+"            );
+        indexToAG.put("74",             "a3+"            );
+        indexToAG.put("77",             "c4+"            );
+        indexToAG.put("79",               "d4+"            );
+        indexToAG.put("82",               "f4+"            );
+        indexToAG.put("84",               "g4+"            );
+        indexToAG.put("86",               "a4+"            );
     }
 
 
     static {
         AGToIndex.put("A2", "1");
+
         AGToIndex.put("B2", "3");
         AGToIndex.put("C1", "4");
         AGToIndex.put("D1", "6");

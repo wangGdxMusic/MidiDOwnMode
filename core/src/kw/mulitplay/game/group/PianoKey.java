@@ -44,7 +44,7 @@ public class PianoKey extends Group {
     public PianoKey(int index,int keyIndex){
 //        NinePatch touchUpNinePatch;
 //        NinePatch touchDownNinePatch;
-
+        this.key = keyIndex;
         if (index == 1){
 
             this.imageDown = new Image(Asset.getAsset().getTexture("main/white_up.png"));
@@ -112,6 +112,7 @@ public class PianoKey extends Group {
         if (hide!=null) {
             hide.callBack("");
         }
+        MidiInstruments.noteOff(key);
         pros = null;
     }
 
@@ -150,6 +151,7 @@ public class PianoKey extends Group {
             pros.setY(imageUp.getY(Align.top), Align.top);
             pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed, 0.2f)));
         }
+        MidiInstruments.noteOn(key);
 //        sound.play();
     }
 
@@ -213,4 +215,7 @@ public class PianoKey extends Group {
     public void setMode(int mode) {
         this.mode = mode;
     }
+
+    private int key;
+
 }

@@ -43,7 +43,6 @@ public class ActorTimeLine {
                     if (image.getY()<=0) {
                         System.out.println(getY());
                         timeTemp += delta;
-                        MidiInstruments.noteOn(note.getKey());
                         System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 21)+""));
                         if (pianoKey!=null){
                             pianoKey.touchDownKey();
@@ -59,7 +58,6 @@ public class ActorTimeLine {
                             System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 21)+""));
                             pianoKey.finishTouchi();
                         }
-                        MidiInstruments.noteOff(note.getKey());
                     }
                 }
             }

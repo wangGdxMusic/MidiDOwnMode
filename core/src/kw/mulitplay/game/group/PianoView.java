@@ -19,8 +19,6 @@ import kw.mulitplay.game.constant.Constant;
 
 public class PianoView extends Group {
     private HashMap<String,PianoKey> hashMap;
-    private Label touchDownKeyLeft;
-    private Label touchDownKeyRight;
     private ColorUtils utils;
     private HashMap<Integer, PianoKey> pos;
 
@@ -32,7 +30,6 @@ public class PianoView extends Group {
 
     public void showPianoKey(){
         utils.color();
-        initLabel();
         initKeys();
         waveLine();
     }
@@ -93,17 +90,23 @@ public class PianoView extends Group {
             @Override
             public void callBack(Object o) {
                 setTouchLabel((String)o);
-                touchDownKeyLeft.setText((String)o);
-                touchDownKeyLeft.setPosition(Constant.width/4,Constant.height-50, Align.center);
-
-                touchDownKeyRight.setText((String)o);
-                touchDownKeyRight.setPosition(Constant.width*3/4,Constant.height-50, Align.center);
+//                touchDownKeyLeft.setText((String)o);
+//                touchDownKeyLeft.setPosition(Constant.width/4,Constant.height-50, Align.center);
+//
+//                touchDownKeyRight.setText((String)o);
+//                touchDownKeyRight.setPosition(Constant.width*3/4,Constant.height-50, Align.center);
+//                Label touchDownKeyLeft = new Label("",new Label.LabelStyle(){
+//                    {
+//                        font = AssetLoadFile.getBR40();
+//                    }
+//                });
+//                touchDownKeyLeft.setText((String)o);
+//                addActor(touchDownKeyLeft);
+//                touchDownKeyLeft.setPosition(Constant.width/2,Constant.height/2,Align.center);
             }
         }, new CallBack() {
             @Override
             public void callBack(Object o) {
-                touchDownKeyLeft.setText("");
-                touchDownKeyRight.setText("");
             }
         },new CallBack(){
             @Override
@@ -114,26 +117,6 @@ public class PianoView extends Group {
         addActor(pianoKey);
         pianoKey.toBack();
         return pianoKey;
-    }
-
-    private void initLabel() {
-        touchDownKeyLeft = new Label("",new Label.LabelStyle(){
-            {
-                font = AssetLoadFile.getBR40();
-            }
-        });
-//        addActor(touchDownKeyLeft);
-        touchDownKeyLeft.setAlignment(Align.center);
-        touchDownKeyLeft.setFontScale(5);
-        touchDownKeyRight = new Label("",new Label.LabelStyle(){
-            {
-                font = AssetLoadFile.getBR40();
-            }
-        });
-//        addActor(touchDownKeyRight);
-        touchDownKeyRight.setAlignment(Align.center);
-        touchDownKeyRight.setFontScale(5);
-
     }
 
     private Label touLabel;
