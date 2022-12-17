@@ -1,17 +1,27 @@
 package kw.mulitplay.game.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 
+import java.awt.Dialog;
+import java.awt.FileDialog;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,6 +29,7 @@ import java.util.HashMap;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiUnavailableException;
 
+import kw.mulitplay.game.AssetLoadFile;
 import kw.mulitplay.game.ColorUtils;
 import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.constant.Constant;
@@ -40,18 +51,22 @@ public class DIMIDemoScreen extends BaseScreen {
     private Array<Channel> channelArray;
     private PianoView view ;
     private int resolution;
-    private float timer = 0;
     private Array<ActorTimeLine> disposeNode;
     private Array<ActorTimeLine> actorTimeLines;
+    Group srollPanel;
+    private Image bg;
 
     public DIMIDemoScreen(){
         channelArray = new Array<>();
         disposeNode = new Array<>();
         actorTimeLines = new Array<>();
     }
-    Group srollPanel;
+
     @Override
     protected void initView() {
+        bg = new Image(Asset.getAsset().getTexture("main/white.png"));
+        stage.addActor(bg);
+        bg.setSize(Constant.width,Constant.height);
         view = new PianoView();
         view.setMode(0);
         view.showPianoKey();
@@ -137,6 +152,51 @@ public class DIMIDemoScreen extends BaseScreen {
         srollPanel.setSize(Constant.width,500);
         stage.addActor(srollPanel);
         srollPanel.setY(220);
+
+        Group table = new Group();
+        table.setSize(500,Constant.height);
+        stage.addActor(table);
+        table.setDebug(true);
+        table.setPosition(Constant.width,Constant.height,Align.topRight);
+        Image image = new Image(Asset.getAsset().getTexture("main/white.png"));
+        table.addActor(image);
+        image.setColor(ColorUtils.Silver);
+        image.setSize(table.getWidth(),table.getHeight());
+
+        table.addActor(new Table(){{
+            Label bgResource = new Label("bg",new Label.LabelStyle(){{
+                font = AssetLoadFile.getBR40();
+            }});
+            add(bgResource);
+            bgResource.setY(table.getY()-10,Align.top);
+            bgResource.setX(20);
+            Image image1 = new Image(Asset.getAsset().getTexture("main/white.png"));
+            add(image1).padLeft(30);
+            pack();
+            image1.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    FileDialog dialog = new FileDialog((Dialog) null,"load file");
+                    dialog.setMode(0);
+                    dialog.setVisible(true);
+                    String directory = dialog.getDirectory();
+                    String fileName = dialog.getFile();
+                    try {
+                        if (directory!=null && fileName!=null){
+                            System.out.println(directory +" "+fileName);
+                            bg.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.absolute(directory+fileName)))));
+                            bg.setSize(Constant.width - 500,Constant.height);
+                        }
+                    }catch (Exception e){
+                        bg.setDrawable(null);
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }});
+
+
     }
 
 
@@ -167,7 +227,6 @@ public class DIMIDemoScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-        timer +=delta;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             actorTimeLine.moveDown(delta);
         }

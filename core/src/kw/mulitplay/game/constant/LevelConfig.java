@@ -6,4 +6,5 @@ import javax.print.attribute.standard.Fidelity;
 
 public class LevelConfig {
     public static FileHandle fileHandle;
+    public static FileHandle bg;
 }

@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.screen.LoadingScreen;
 
-public class MulitPlayGame extends Game {
+public class DownPiano extends Game {
     private Viewport viewport;
 
     @Override
@@ -22,7 +22,7 @@ public class MulitPlayGame extends Game {
     }
 
     public void initInstance(){
-        Constant.viewport = viewport = new ExtendViewport(1611,620);
+        Constant.viewport = viewport = new ExtendViewport(2111,620);
         // call to set value Constant.width and Constant.height
         resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         //create batch
@@ -48,8 +48,8 @@ public class MulitPlayGame extends Game {
 
     @Override
     public void render() {
-//        Gdx.gl.glClearColor(245.0f/255.0f,238f/255.0f,228.0f/255.0f,1);
-        Gdx.gl.glClearColor(0f,0f,0f,1);
+        Gdx.gl.glClearColor(237.0f/255.0f,223f/255.0f,223.0f/255.0f,1);
+//        Gdx.gl.glClearColor(0f,0f,0f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render();
     }

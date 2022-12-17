@@ -25,7 +25,7 @@ import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 
 public class PianoKey extends Group {
-    private Sound sound;
+//    private Sound sound;
     private Color oldColor;
     private Image imageUp;
     private Image imageDown;
@@ -34,7 +34,6 @@ public class PianoKey extends Group {
     private Array<Image> disableArray;
     private Label keyInfo;
     private int keyIndex;
-    private byte[] fftData;
     private boolean isTouched;
     private CallBack showBack;
     private CallBack hide;
@@ -130,7 +129,7 @@ public class PianoKey extends Group {
             showBack.callBack(touchButtonName);
         }
         if (back != null) {
-            back.callBack(getFftData());
+//            back.callBack(null);
         }
         isTouched = true;
         oldColor.r = color.r;
@@ -162,20 +161,9 @@ public class PianoKey extends Group {
         imageUp.setSize(width,height);
     }
 
-    public void setSound(Sound newSound) {
-        this.sound = newSound;
-    }
-
-    public void setPathSound(String pathSound){
-        this.sound = Asset.assetManager.get("piano2/p"+pathSound+".mp3");
-        FileHandle internal = Gdx.files.internal("piano2/p" + pathSound + ".mp3");
-        byte[] bytes = internal.readBytes();
-        fftData = bytes;
-    }
-
-    public byte[] getFftData() {
-        return fftData;
-    }
+//    public byte[] getFftData() {
+//        return fftData;
+//    }
 
     @Override
     public void act(float delta) {
@@ -208,9 +196,9 @@ public class PianoKey extends Group {
         this.back = back;
     }
 
-    public Sound getSound() {
-        return sound;
-    }
+//    public Sound getSound() {
+//        return sound;
+//    }
 
     public void setMode(int mode) {
         this.mode = mode;

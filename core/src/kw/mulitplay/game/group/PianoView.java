@@ -84,7 +84,6 @@ public class PianoView extends Group {
             path = keyIndex +"";
         }
         pianoKey.setLabel();
-        pianoKey.setPathSound(path);
         pianoKey.setMovePanelColor(ColorUtils.array.get(keyIndex));
         pianoKey.addCallBack(new CallBack() {
             @Override

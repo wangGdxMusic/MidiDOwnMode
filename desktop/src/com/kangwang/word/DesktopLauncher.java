@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 
-import kw.mulitplay.game.MulitPlayGame;
+import kw.mulitplay.game.DownPiano;
 
 public class DesktopLauncher {
     public static void main(String[] arg) {
 //        texturePack();
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title = "wrod squares";
+        config.title = "down piano";
         config.width =1040; //485
         config.height =440;
         config.x = 10;
         config.y = 10;
-        new LwjglApplication(new MulitPlayGame(),config);
+        new LwjglApplication(new DownPiano(),config);
     }
 
     static String[] atlasFileName = {"main"};
