@@ -18,7 +18,6 @@ public class LoadingScreen extends BaseScreen {
     @Override
     protected void initView() {
         Image bg = new Image(Asset.getAsset().getTexture("main/white.png"));
-//        stage.addActor(bg);
         bg.setSize(Constant.width,Constant.height);
         Texture texture = Asset.getAsset().getTexture("main/2.png");
         Image icon = new Image(texture);

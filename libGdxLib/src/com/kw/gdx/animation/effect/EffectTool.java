@@ -99,7 +99,7 @@ public class EffectTool extends Actor {
         try {
             assetamnagerinstance.unload(path);
         }catch (Exception e){
-            System.out.println("已经释放！");
+
         }
     }
 

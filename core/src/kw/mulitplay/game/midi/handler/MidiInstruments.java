@@ -39,6 +39,7 @@ public class MidiInstruments {
     public final static int DEFAULT_INSTRUMENT = 0;
     private static Synthesizer synthesizer = null;
     private static MidiChannel channel = null;
+    private static Instrument old = null;
 
     public static Instrument[] getInstruments() throws MidiUnavailableException {
         synthesizer = MidiSystem.getSynthesizer();
@@ -49,16 +50,15 @@ public class MidiInstruments {
         MidiChannel[] mChannels = synthesizer.getChannels();
         channel = mChannels[0];
         Constant.instrument = orchestra[0];
+        old = orchestra[0];
         return orchestra;
     }
 
-    public static Instrument getDefaultInstrument() throws MidiUnavailableException {
-        return getInstruments()[DEFAULT_INSTRUMENT];
-    }
+//    public static Instrument getDefaultInstrument() throws MidiUnavailableException {
+//        return getInstruments()[DEFAULT_INSTRUMENT];
+//    }
 
-    private static Instrument old = null;
     public static void selectInstrument(Instrument select) {
-
         if (old != null){
             synthesizer.unloadInstrument(old);
         }
@@ -68,10 +68,10 @@ public class MidiInstruments {
     }
 
     public static void noteOn(int key) {
-        channel.noteOn(key+21, 100);
+        channel.noteOn(key+20, 100);
     }
 
     public static void noteOff(int key) {
-        channel.noteOff(key+21, 100);
+        channel.noteOff(key+20, 100);
     }
 }

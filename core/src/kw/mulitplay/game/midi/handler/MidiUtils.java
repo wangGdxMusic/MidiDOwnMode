@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiFileFormat;
 import javax.sound.midi.MidiMessage;
@@ -44,28 +45,30 @@ public class MidiUtils {
     public static Channel[] getChannels(Sequence sequence) {
         Array<Channel> channels = new Array();
         ArrayList<Note> noteList = new ArrayList<>();
-
-        int trackNumber = 0;
-        int length = sequence.getTracks().length;
         int index=0;
-
-
+        float bpms = 0;
+        int count = 0;
         for (Track track : sequence.getTracks()){
-
-//        for (Track track : sequence.getTracks()) {
             noteList.clear();
             long[] buffer = new long[200];
             Arrays.fill(buffer, -1);
 
+
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
                 MidiMessage message = event.getMessage();
-
+                if (message instanceof MetaMessage) {
+                    MetaMessage metaMessage = (MetaMessage) message;
+                    if (metaMessage.getType() == 0x51) {
+                        byte[] data = metaMessage.getData();
+                        float bpm = 60000000f / (float) ((data[0] & 0xFF) << 16 | (data[1] & 0xFF) << 8 | (data[2] & 0xFF));
+                        bpms += bpm;
+                        count ++ ;
+                    }
+                }
                 long tick = event.getTick();
-
                 if (message instanceof ShortMessage) {
                     ShortMessage sm = (ShortMessage) message;
-
                     int command = sm.getCommand();
                     int key = sm.getData1();
                     int velocity = sm.getData2();
@@ -73,7 +76,6 @@ public class MidiUtils {
                     if (velocity == 0) {
                         command = NOTE_OFF;
                     }
-
                     switch (command) {
                         case NOTE_ON: {
                             if (buffer[key] == EMPTY) {
@@ -87,7 +89,7 @@ public class MidiUtils {
                             if (buffer[key] != EMPTY) {
                                 long timestamp = buffer[key];
                                 buffer[key] = EMPTY;
-                                Note note = new Note(key-21, timestamp, tick - timestamp,index);
+                                Note note = new Note(key-20, timestamp, tick - timestamp,index);
                                 noteList.add(note);
                             } else {
                                 System.err.println("Invalid MIDI File! Note off when it isn't on.");
@@ -104,16 +106,22 @@ public class MidiUtils {
                     System.out.println(message);
                 }
             }
+
             if (noteList.size()>0) {
                 channels.add(new Channel(noteList));
-
                 index ++;
             }
-            trackNumber++;
         }
         Channel[] channels1 = new Channel[channels.size];
         for (int i = 0; i < channels.size; i++) {
             channels1[i] = channels.get(i);
+        }
+        float averageTicks = (float) bpms / count;
+        for (Channel channel : channels1) {
+            Note[] notes = channel.getNotes();
+            for (Note note : notes) {
+                note.setBpm((int)averageTicks);
+            }
         }
         return channels1;
     }

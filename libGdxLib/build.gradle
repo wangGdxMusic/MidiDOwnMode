@@ -5,7 +5,7 @@ dependencies {
 }
 
 sourceSets.main.java.srcDirs = [
-        "src/","utilssrc","myqt"
+        "src/","utilssrc"
 ]
 
 publishing {

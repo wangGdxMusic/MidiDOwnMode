@@ -81,17 +81,16 @@ public class DIMIDemoScreen extends BaseScreen {
             }},new ScrollPane.ScrollPaneStyle());
 //            stage.addActor(pane);
             pane.setSize(Constant.width,Constant.height);
-
             if (Constant.instrument!=null) {
                 MidiInstruments.selectInstrument(Constant.instrument);
             }
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
-//        FileHandle source = new FileHandle("midi/wind street.mid");
         FileHandle source = LevelConfig.fileHandle;
         try {
             Sheet sheet = MidiUtils.getSheet(source.file());
+
             Channel[] channels = sheet.getChannels();
             resolution = sheet.getResolution();
             for (Channel channel : channels) {
@@ -100,6 +99,7 @@ public class DIMIDemoScreen extends BaseScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         for (Channel channel : channelArray) {
             for (Note note : channel.getNotes()) {
                 actorTimeLines.add(new ActorTimeLine(note,view,resolution,note.getNum()));
@@ -111,10 +111,6 @@ public class DIMIDemoScreen extends BaseScreen {
                 return (int) (o1.getStartTime() - o2.getStartTime());
             }
         });
-
-//        PuziView view = new PuziView(actorTimeLines);
-//        stage.addActor(view);
-
         srollPanel = new Group(){
             @Override
             public void draw(Batch batch, float parentAlpha) {
@@ -135,9 +131,12 @@ public class DIMIDemoScreen extends BaseScreen {
             Image image = actorTimeLine.getImage();
             image.setY(actorTimeLine.getStartTime()*200+300);
             image.setHeight(200*(actorTimeLine.getEndTime() - actorTimeLine.getStartTime()));
+
+
             srollPanel.addActor(image);
             image.setWidth(30);
             image.setColor(ColorUtils.array.get(actorTimeLine.getNote().getKey()));
+            System.out.println(actorTimeLine.getNote().getKey());
             PianoKey vector2 = pos.get(actorTimeLine.getNote().getKey());
             actorTimeLine.setPianoKey(vector2);
             image.setX(vector2.getX());

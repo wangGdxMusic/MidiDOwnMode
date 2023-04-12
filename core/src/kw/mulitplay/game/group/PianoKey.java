@@ -25,7 +25,7 @@ import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 
 public class PianoKey extends Group {
-//    private Sound sound;
+    private Sound sound;
     private Color oldColor;
     private Image imageUp;
     private Image imageDown;
@@ -45,7 +45,6 @@ public class PianoKey extends Group {
 //        NinePatch touchDownNinePatch;
         this.key = keyIndex;
         if (index == 1){
-
             this.imageDown = new Image(Asset.getAsset().getTexture("main/white_up.png"));
             this.imageUp = new Image(Asset.getAsset().getTexture("main/white_down.png"));
 //            touchDownNinePatch = new NinePatch(Asset.getAsset().getTexture("pianoImg/white.png"),5,5,5,5);
@@ -59,6 +58,15 @@ public class PianoKey extends Group {
         addActor(imageUp);
         addActor(imageDown);
         initData(keyIndex);
+        String name = keyIndex+"";
+        if (keyIndex<10){
+            name = "0"+keyIndex;
+        }
+        if (!Asset.assetManager.isLoaded("piano2/p"+name+".mp3")) {
+            Asset.assetManager.load("piano2/p" + name + ".mp3",Sound.class);
+            Asset.assetManager.finishLoading();
+        }
+        this.sound = Asset.assetManager.get("piano2/p" + name + ".mp3");
     }
 
     private void initData(int keyIndex) {
@@ -98,6 +106,11 @@ public class PianoKey extends Group {
         addActor(keyInfo);
         keyInfo.setFontScale(0.5f);
         keyInfo.setAlignment(Align.center);
+
+
+    }
+    public void setPathSound(String pathSound){
+
     }
 
     public void finishTouchi() {
@@ -151,7 +164,7 @@ public class PianoKey extends Group {
             pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed, 0.2f)));
         }
         MidiInstruments.noteOn(key);
-//        sound.play();
+        sound.play();
     }
 
     @Override

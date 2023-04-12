@@ -28,6 +28,7 @@ public class Note {
     private final long timestamp;
     private final long length;
     private int num;
+    private int bpm;
     //1-88
     //22 - 110
     Note(int key, long timestamp, long length,int num) {
@@ -35,6 +36,14 @@ public class Note {
         this.key = key;
         this.timestamp = timestamp;
         this.length = length;
+    }
+
+    public void setBpm(int bpm) {
+        this.bpm = bpm;
+    }
+
+    public int getBpm() {
+        return bpm;
     }
 
     public int getNum() {

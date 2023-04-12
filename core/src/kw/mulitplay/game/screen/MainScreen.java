@@ -1,19 +1,9 @@
 package kw.mulitplay.game.screen;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kw.gdx.asset.Asset;
-
-import java.awt.Desktop;
-import java.awt.Dialog;
-import java.awt.FileDialog;
-import java.io.File;
-
-import javafx.stage.FileChooser;
-import kw.mulitplay.game.constant.LevelConfig;
 import kw.mulitplay.game.screen.base.BaseScreen;
 
 public class MainScreen extends BaseScreen {
@@ -41,15 +31,15 @@ public class MainScreen extends BaseScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-                    FileDialog dialog = new FileDialog((Dialog) null,"load file");
-                    dialog.setMode(0);
-                    dialog.setVisible(true);
-                    String directory = dialog.getDirectory();
-                    String fileName = dialog.getFile();
-                    if (directory!=null && fileName!=null){
-                        System.out.println(directory +" "+fileName);
-                        LevelConfig.fileHandle = Gdx.files.absolute(directory+fileName);
-                    }
+//                    FileDialog dialog = new FileDialog((Dialog) null,"load file");
+//                    dialog.setMode(0);
+//                    dialog.setVisible(true);
+//                    String directory = dialog.getDirectory();
+//                    String fileName = dialog.getFile();
+//                    if (directory!=null && fileName!=null){
+//                        System.out.println(directory +" "+fileName);
+//                        LevelConfig.fileHandle = Gdx.files.absolute(directory+fileName);
+//                    }
                     enterScreen(new DIMIDemoScreen());
                 }
             });

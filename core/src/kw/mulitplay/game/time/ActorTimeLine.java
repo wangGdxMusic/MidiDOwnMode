@@ -8,6 +8,7 @@ import com.kw.gdx.asset.Asset;
 import kw.mulitplay.game.MapKeySound;
 import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.constant.Constant;
+import kw.mulitplay.game.file.FileUtils;
 import kw.mulitplay.game.group.PianoKey;
 import kw.mulitplay.game.group.PianoView;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
@@ -28,8 +29,16 @@ public class ActorTimeLine {
     public ActorTimeLine(Note note, PianoView view, int resolution,int up){
         this.up = up;
         this.note = note;
-        this.startTime = note.getTimeStamp() * 60.0f / resolution / 120.0f*2;
-        this.endTime = (note.getTimeStamp()+note.getLength())*60.0f / resolution / 120.0f*2;
+
+
+//        this.startTime = note.getTimeStamp() * 60.0f / 120.0f / resolution * 2;
+//        this.endTime = (note.getTimeStamp()+note.getLength())*60.0f*120.0f / resolution * 2;
+
+        this.startTime = note.getTimeStamp() * (60.0f / (resolution * note.getBpm()));
+        this.endTime = (note.getTimeStamp()+note.getLength()) * (60.0f / (resolution * note.getBpm()));
+
+
+
         this.view = view;
         image = new Image(new NinePatch(
                 Asset.getAsset().getTexture("main/float.png"),
@@ -41,10 +50,9 @@ public class ActorTimeLine {
                 if (!vla)return;
                 if (!palyed){
                     if (image.getY()<=0) {
-                        System.out.println(getY());
                         timeTemp += delta;
-                        System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 21)+""));
                         if (pianoKey!=null){
+                            FileUtils.getFileUtils().write(SoundKeyMap.indexToAG.get((note.getKey() - 20)));
                             pianoKey.touchDownKey();
                         }
                         timeTemp = 0;
@@ -55,7 +63,7 @@ public class ActorTimeLine {
                     if (timeTemp>=endTime - startTime){
                         vla = false;
                         if (pianoKey!=null){
-                            System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 21)+""));
+                            System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 20)+""));
                             pianoKey.finishTouchi();
                         }
                     }
