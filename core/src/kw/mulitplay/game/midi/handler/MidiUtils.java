@@ -32,6 +32,8 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
+import kw.mulitplay.game.constant.Constant;
+
 /**
  *
  * @author david
@@ -53,7 +55,8 @@ public class MidiUtils {
             long[] buffer = new long[200];
             Arrays.fill(buffer, -1);
 
-
+            System.out.println("----------------------------");
+            float tas = -1;
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
                 MidiMessage message = event.getMessage();
@@ -106,7 +109,6 @@ public class MidiUtils {
                     System.out.println(message);
                 }
             }
-
             if (noteList.size()>0) {
                 channels.add(new Channel(noteList));
                 index ++;
@@ -123,6 +125,7 @@ public class MidiUtils {
                 note.setBpm((int)averageTicks);
             }
         }
+        Constant.bpm = (int)averageTicks;
         return channels1;
     }
 
@@ -139,6 +142,7 @@ public class MidiUtils {
             resolution = -1;
         }
         Channel[] channels = getChannels(sequence);
+//        Channel[]  = getChannels(sequence);
         return new Sheet(channels, resolution, length);
     }
 

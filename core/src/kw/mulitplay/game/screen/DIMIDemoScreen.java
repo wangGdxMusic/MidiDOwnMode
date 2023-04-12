@@ -2,8 +2,10 @@ package kw.mulitplay.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -55,6 +57,8 @@ public class DIMIDemoScreen extends BaseScreen {
     private Array<ActorTimeLine> actorTimeLines;
     Group srollPanel;
     private Image bg;
+    private Array<Image> aa = new Array<>();
+    private float v;
 
     public DIMIDemoScreen(){
         channelArray = new Array<>();
@@ -131,8 +135,6 @@ public class DIMIDemoScreen extends BaseScreen {
             Image image = actorTimeLine.getImage();
             image.setY(actorTimeLine.getStartTime()*200+300);
             image.setHeight(200*(actorTimeLine.getEndTime() - actorTimeLine.getStartTime()));
-
-
             srollPanel.addActor(image);
             image.setWidth(30);
             image.setColor(ColorUtils.array.get(actorTimeLine.getNote().getKey()));
@@ -143,8 +145,18 @@ public class DIMIDemoScreen extends BaseScreen {
             maxHeight = Math.max(image.getY(Align.top),maxHeight);
             maxTime = Math.max(maxTime,actorTimeLine.getEndTime());
         }
+        for (int i = 0; i < 60; i++) {
+            Image image  = new Image(Asset.getAsset().getTexture("main/float.png"));
+            image.setHeight(3);
+            image.setWidth(Constant.width);
+            image.setY(i * Constant.bpm /60.0f *200);
+            image.setColor(Color.BLACK);
+            stage.addActor(image);
+            aa.add(image);
+        }
+
         System.out.println(maxHeight +"  "+ maxTime);
-        float v = maxHeight / maxTime;
+        v = maxHeight / maxTime;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             actorTimeLine.setMoveDistance(v);
         }
@@ -228,6 +240,9 @@ public class DIMIDemoScreen extends BaseScreen {
         super.render(delta);
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             actorTimeLine.moveDown(delta);
+        }
+        for (Image image : aa) {
+            image.setY(image.getY() - delta * v);
         }
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             if (actorTimeLine.getStatus()==2){
