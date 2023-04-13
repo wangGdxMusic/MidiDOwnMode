@@ -5,12 +5,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
 
-import kw.mulitplay.game.MapKeySound;
-import kw.mulitplay.game.SoundKeyMap;
-import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.drawpanioline.data.PerPaItem;
 import kw.mulitplay.game.drawpanioline.manager.ItemManager;
-import kw.mulitplay.game.file.FileUtils;
 import kw.mulitplay.game.group.PianoKey;
 import kw.mulitplay.game.group.PianoView;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
@@ -55,9 +51,8 @@ public class ActorTimeLine {
                         System.out.println();
                         timeTemp += delta;
                         if (pianoKey!=null){
-                            FileUtils.getFileUtils().write(SoundKeyMap.indexToAG.get((note.getKey() - 20)));
+//                            FileUtils.getFileUtils().write(SoundKeyMap.indexToAG.get((note.getKey() - 20)));
                             pianoKey.touchDownKey();
-
                             ItemManager.getItemManager().addItem(paNum,new PerPaItem(offSet,note.getKey() - 20,isUp()));
                         }
                         timeTemp = 0;

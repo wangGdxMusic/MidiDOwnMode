@@ -26,8 +26,6 @@ public class InsturmentItem extends Group {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 Constant.instrument = instrument;
-//                Constant.game.setScreen(new MainScreen());
-//                MidiInstruments.selectInstrument(instrument);
                 MidiInstruments.selectInstrument(Constant.instrument);
             }
         });

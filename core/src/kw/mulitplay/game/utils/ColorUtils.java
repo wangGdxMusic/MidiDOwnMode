@@ -1,4 +1,4 @@
-package kw.mulitplay.game;
+package kw.mulitplay.game.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;

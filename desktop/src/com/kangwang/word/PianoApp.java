@@ -20,6 +20,8 @@ public class PianoApp {
     private static Sequence sequence;
     private static Instrument instruments[];
     private static ChannelData channels[];
+    final int OFF = 0;
+    final int ON = 1;
 
     public static void main(String[] args) {
         try {
@@ -32,9 +34,9 @@ public class PianoApp {
             synthesizer.open();
             sequencer = MidiSystem.getSequencer();
             sequence = new Sequence(Sequence.PPQ, 10);
-        } catch (Exception ex) { ex.printStackTrace(); return; }
-
-
+        } catch (Exception ex) {
+            ex.printStackTrace(); return;
+        }
         Soundbank sb = synthesizer.getDefaultSoundbank();
         if (sb != null) {
             instruments = synthesizer.getDefaultSoundbank().getInstruments();
@@ -46,7 +48,6 @@ public class PianoApp {
             channels[i] = new ChannelData(midiChannels[i], i);
         }
         cc = channels[0];
-
         PianoApp app = new PianoApp();
         app.data();
         for (Key whiteKey : app.whiteKeys) {
@@ -60,23 +61,11 @@ public class PianoApp {
     }
 
     public void data(){
-        int transpose = 24;
-        int kw = 16;
-        int whiteIDs[] = { 0, 2, 4, 5, 7, 9, 11 };
-
-//        for (int i = 0, x = 0; i < 8; i++) {
-//            for (int j = 0; j < 7; j++, x += kw) {
-//                int keyNum = i * 12 + whiteIDs[j] + transpose;
-//                whiteKeys.add(new Key(keyNum));
-//            }
-//        }
         for (int i = 0; i < 150; i++) {
             whiteKeys.add(new Key(i));
         }
     }
 
-    final int OFF = 0;
-    final int ON = 1;
     class Key {
         int noteState = OFF;
         int kNum;
@@ -114,19 +103,4 @@ public class PianoApp {
             velocity = pressure = bend = reverb = 64;
         }
     }
-
-//        public void setComponentStates() {
-//            //sustCB.setSelected(sustain);
-//
-//            JSlider slider[] = { veloS, presS, bendS, revbS };
-//            int v[] = { velocity, pressure, bend, reverb };
-//            for (int i = 0; i < slider.length; i++) {
-//                TitledBorder tb = (TitledBorder) slider[i].getBorder();
-//                String s = tb.getTitle();
-//                tb.setTitle(s.substring(0, s.indexOf('=')+1)+s.valueOf(v[i]));
-//                slider[i].repaint();
-//            }
-//        }
-//    } // End class ChannelData
-
 }

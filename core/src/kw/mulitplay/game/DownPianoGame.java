@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.screen.LoadingScreen;
 
-public class DownPiano extends Game {
+public class DownPianoGame extends Game {
     private Viewport viewport;
 
     @Override

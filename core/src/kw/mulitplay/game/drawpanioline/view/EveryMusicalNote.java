@@ -35,13 +35,16 @@ public class EveryMusicalNote extends Group {
 //    }
 
     public void initPostion(boolean isUp){
+        int i = 200 / 8;
         if (musicalNote!=null) {
             float v = off;
             if (isUp) {
-                setY(key * 20 + 200); //10
+                setY(key  + 200); //10
             }else {
-                setY(key * 20); //10
+                setY(key ); //10
             }
+            System.out.println(key +" -------------key");
+//            setY(key*10);
             setX(v * 400); // 100 这个根据自己定义来确定
         }
     }

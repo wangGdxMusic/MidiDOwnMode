@@ -224,18 +224,13 @@ public class DIMIDemoScreen extends BaseScreen {
         Table tableItem = new Table();
         scrollPane = new ScrollPane(tableItem);
         scrollPane.addAction(Actions.forever(Actions.run(()->{
-            scrollPane.setScrollX(scrollPane.getScrollX() + 10);
+            scrollPane.setScrollY(scrollPane.getScrollY() + 10);
         })));
-        scrollPane.setWidth(Constant.width/2);
+        scrollPane.setWidth(Constant.width);
         scrollPane.setHeight(500);
         stage.addActor(scrollPane);
         scrollPane.setY(300);
         tableItem.align(Align.left);
-        for (int i = 0; i < 2; i++) {
-            Group baseGroup = new PerPaItemNote();
-            tableItem.add(baseGroup);
-            tableItem.pack();
-        }
         new ItemManager(tableItem);
     }
 

@@ -1,4 +1,4 @@
-package kw.mulitplay.game;
+package kw.mulitplay.game.keymap;
 
 import com.badlogic.gdx.utils.Array;
 

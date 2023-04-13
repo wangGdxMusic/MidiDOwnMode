@@ -22,6 +22,7 @@ public class ItemManager {
     private HashMap<Integer, Array<PerPaItem>> hashMapData;
     private HashMap<Integer, Group> hashMapGroup;
     private static ItemManager itemManager;
+    private int index;
 
     public ItemManager(Table rootGroup){
         this.rootGroup = rootGroup;
@@ -35,6 +36,7 @@ public class ItemManager {
     }
 
     public void addItem(int key, PerPaItem item){
+
         Array<PerPaItem> perPaItems;
         PerPaItemNote baseGroup;
         if (hashMapData.containsKey(key)){
@@ -45,6 +47,11 @@ public class ItemManager {
             baseGroup = new PerPaItemNote();
             rootGroup.add(baseGroup);
             rootGroup.pack();
+            index ++;
+            if (index>3){
+                rootGroup.row();
+                index = 0;
+            }
             hashMapData.put(key,perPaItems);
             hashMapGroup.put(key,baseGroup);
         }

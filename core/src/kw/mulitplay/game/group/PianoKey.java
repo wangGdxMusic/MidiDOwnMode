@@ -164,7 +164,7 @@ public class PianoKey extends Group {
             pros.addAction(Actions.forever(Actions.sizeBy(0, Constant.panelMoveSpeed, 0.2f)));
         }
         MidiInstruments.noteOn(key);
-        sound.play();
+//        sound.play();
     }
 
     @Override
