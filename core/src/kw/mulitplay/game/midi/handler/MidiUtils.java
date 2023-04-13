@@ -125,7 +125,7 @@ public class MidiUtils {
                 note.setBpm((int)averageTicks);
             }
         }
-        Constant.bpm = (int)averageTicks;
+        Constant.bpm = averageTicks;
         return channels1;
     }
 

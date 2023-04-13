@@ -20,5 +20,5 @@ public class Constant {
 
     public static float speed = 0;
     public static Instrument instrument;
-    public static int bpm;
+    public static float bpm;
 }

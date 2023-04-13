@@ -50,6 +50,7 @@ public class ActorTimeLine {
                 if (!vla)return;
                 if (!palyed){
                     if (image.getY()<=0) {
+                        System.out.println();
                         timeTemp += delta;
                         if (pianoKey!=null){
                             FileUtils.getFileUtils().write(SoundKeyMap.indexToAG.get((note.getKey() - 20)));

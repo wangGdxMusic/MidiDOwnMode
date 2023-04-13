@@ -59,7 +59,7 @@ public class DIMIDemoScreen extends BaseScreen {
     private Image bg;
     private Array<Image> aa = new Array<>();
     private float v;
-
+    private float timeToatal = -4;
     public DIMIDemoScreen(){
         channelArray = new Array<>();
         disposeNode = new Array<>();
@@ -133,7 +133,7 @@ public class DIMIDemoScreen extends BaseScreen {
         float maxTime = 0;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             Image image = actorTimeLine.getImage();
-            image.setY(actorTimeLine.getStartTime()*200+300);
+            image.setY(actorTimeLine.getStartTime()*200+700);
             image.setHeight(200*(actorTimeLine.getEndTime() - actorTimeLine.getStartTime()));
             srollPanel.addActor(image);
             image.setWidth(30);
@@ -145,20 +145,22 @@ public class DIMIDemoScreen extends BaseScreen {
             maxHeight = Math.max(image.getY(Align.top),maxHeight);
             maxTime = Math.max(maxTime,actorTimeLine.getEndTime());
         }
-        for (int i = 0; i < 60; i++) {
+        float perHeight = (60.0f / Constant.bpm) * 200;
+        float lineNum = maxHeight / perHeight;
+        for (int i = 0; i < lineNum; i++) {
             Image image  = new Image(Asset.getAsset().getTexture("main/float.png"));
             image.setHeight(3);
             image.setWidth(Constant.width);
-            image.setY(i * Constant.bpm /60.0f *200);
+            image.setY(i * perHeight + 700);
             image.setColor(Color.BLACK);
-            stage.addActor(image);
+            srollPanel.addActor(image);
             aa.add(image);
         }
 
         System.out.println(maxHeight +"  "+ maxTime);
-        v = maxHeight / maxTime;
+        this.v = maxHeight / maxTime;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
-            actorTimeLine.setMoveDistance(v);
+            actorTimeLine.setMoveDistance(this.v);
         }
         srollPanel.setSize(Constant.width,500);
         stage.addActor(srollPanel);
@@ -238,6 +240,8 @@ public class DIMIDemoScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
+        timeToatal += delta;
+        System.out.println(timeToatal);
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             actorTimeLine.moveDown(delta);
         }
