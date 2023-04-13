@@ -8,10 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import javax.sound.midi.Instrument;
 
-import kw.mulitplay.game.AssetLoadFile;
+import kw.mulitplay.game.asset.AssetLoadFile;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
-import kw.mulitplay.game.screen.MainScreen;
 
 public class InsturmentItem extends Group {
     public InsturmentItem(Instrument instrument){

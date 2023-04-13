@@ -2,7 +2,6 @@ package kw.mulitplay.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 
-import kw.mulitplay.game.AssetLoadFile;
+import kw.mulitplay.game.asset.AssetLoadFile;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.screen.base.BaseScreen;
 

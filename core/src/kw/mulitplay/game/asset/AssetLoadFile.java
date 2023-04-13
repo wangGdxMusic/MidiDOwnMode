@@ -1,4 +1,4 @@
-package kw.mulitplay.game;
+package kw.mulitplay.game.asset;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -7,7 +7,7 @@ import com.kw.gdx.asset.Asset;
 import java.util.HashMap;
 
 public class AssetLoadFile {
-    public static HashMap<String,Sound> hashMap = new HashMap<>();
+//    public static HashMap<String,Sound> hashMap = new HashMap<>();
 //    public static void loadSound(){
 //        for (int i = 1; i <= 88; i++) {
 //            if (i<10){

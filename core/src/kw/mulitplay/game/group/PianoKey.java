@@ -1,10 +1,7 @@
 package kw.mulitplay.game.group;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,9 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 
-import java.util.ArrayList;
-
-import kw.mulitplay.game.AssetLoadFile;
+import kw.mulitplay.game.asset.AssetLoadFile;
 import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.callback.CallBack;
 import kw.mulitplay.game.constant.Constant;

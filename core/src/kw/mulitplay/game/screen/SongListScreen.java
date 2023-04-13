@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import kw.mulitplay.game.AssetLoadFile;
+import kw.mulitplay.game.asset.AssetLoadFile;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.constant.LevelConfig;
 import kw.mulitplay.game.screen.base.BaseScreen;
