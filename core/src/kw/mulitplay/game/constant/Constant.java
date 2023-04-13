@@ -17,8 +17,6 @@ public class Constant {
     public static float bgScale = 1;
     public static AssetManager assetManager;
     public static float panelMoveSpeed = 30;
-
-    public static float speed = 0;
     public static Instrument instrument;
     public static float bpm;
 }

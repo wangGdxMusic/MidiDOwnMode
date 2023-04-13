@@ -31,15 +31,6 @@ public class MainScreen extends BaseScreen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     super.clicked(event, x, y);
-//                    FileDialog dialog = new FileDialog((Dialog) null,"load file");
-//                    dialog.setMode(0);
-//                    dialog.setVisible(true);
-//                    String directory = dialog.getDirectory();
-//                    String fileName = dialog.getFile();
-//                    if (directory!=null && fileName!=null){
-//                        System.out.println(directory +" "+fileName);
-//                        LevelConfig.fileHandle = Gdx.files.absolute(directory+fileName);
-//                    }
                     enterScreen(new DIMIDemoScreen());
                 }
             });

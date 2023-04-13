@@ -14,9 +14,9 @@ import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 
 import kw.mulitplay.game.asset.AssetLoadFile;
-import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.callback.CallBack;
 import kw.mulitplay.game.constant.Constant;
+import kw.mulitplay.game.keymap.SoundKeyMap;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 
 public class PianoKey extends Group {

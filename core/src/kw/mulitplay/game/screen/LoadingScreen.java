@@ -16,19 +16,16 @@ import kw.mulitplay.game.screen.base.BaseScreen;
 public class LoadingScreen extends BaseScreen {
     @Override
     protected void initView() {
-        Image bg = new Image(Asset.getAsset().getTexture("main/white.png"));
-        bg.setSize(Constant.width,Constant.height);
-        Texture texture = Asset.getAsset().getTexture("main/2.png");
-        Image icon = new Image(texture);
-        stage.addActor(icon);
+        Image icon = new Image(Asset.getAsset().getTexture("main/2.png"));
         icon.setPosition(Constant.width/2,Constant.height/2, Align.center);
+        stage.addActor(icon);
+
         AssetLoadFile.loadFile();
-        AssetLoadFile.loadFile();
-        BitmapFont br40 = AssetLoadFile.getBR40();
         Label info = new Label("",new Label.LabelStyle(){{
-            font = br40;
+            font = AssetLoadFile.getBR40();
         }});
         stage.addActor(info);
+
         FileHandle internal = Gdx.files.internal("info.txt");
         String s = internal.readString();
         String[] split = s.split("\n");
