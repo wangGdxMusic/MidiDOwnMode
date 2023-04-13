@@ -158,7 +158,7 @@ public class JsonUtils {
             float baseBeats = jsonData.getBaseBeats();
             float bpm = jsonData.getBpm();
             if (bpm == 0){
-                System.out.println( "- -------------");
+//                System.out.println( "- -------------");
             }
             //music
             Array<String> scores = jsonData.getScores();
@@ -189,7 +189,7 @@ public class JsonUtils {
             }
             for (NoteDataBean bean : base) {
                 if (bean.getType()!=1){
-                    System.out.println("-------------------");
+//                    System.out.println("-------------------");
                 }
                 bean.setLen(bean.getLen()/baseBeats);
                 if (bean.getLen()>1.0f){
@@ -199,7 +199,7 @@ public class JsonUtils {
                 }
             }
             arrayArray.add(base);
-            System.out.println(base);
+//            System.out.println(base);
         }
         return jsonDataBean;
     }

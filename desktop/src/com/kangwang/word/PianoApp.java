@@ -25,7 +25,7 @@ public class PianoApp {
         try {
             if (synthesizer == null) {
                 if ((synthesizer = MidiSystem.getSynthesizer()) == null) {
-                    System.out.println("getSynthesizer() failed!");
+//                    System.out.println("getSynthesizer() failed!");
                     return;
                 }
             }
@@ -90,7 +90,7 @@ public class PianoApp {
 
         public void on() {
             setNoteState(ON);
-            System.out.println("touch down "+kNum);
+//            System.out.println("touch down "+kNum);
             cc.channel.noteOn(kNum, cc.velocity);
         }
 

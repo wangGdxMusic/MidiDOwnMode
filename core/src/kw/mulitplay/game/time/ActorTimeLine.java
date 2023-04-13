@@ -8,6 +8,8 @@ import com.kw.gdx.asset.Asset;
 import kw.mulitplay.game.MapKeySound;
 import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.constant.Constant;
+import kw.mulitplay.game.drawpanioline.data.PerPaItem;
+import kw.mulitplay.game.drawpanioline.manager.ItemManager;
 import kw.mulitplay.game.file.FileUtils;
 import kw.mulitplay.game.group.PianoKey;
 import kw.mulitplay.game.group.PianoView;
@@ -55,6 +57,8 @@ public class ActorTimeLine {
                         if (pianoKey!=null){
                             FileUtils.getFileUtils().write(SoundKeyMap.indexToAG.get((note.getKey() - 20)));
                             pianoKey.touchDownKey();
+
+                            ItemManager.getItemManager().addItem(paNum,new PerPaItem(offSet,note.getKey() - 20,isUp()));
                         }
                         timeTemp = 0;
                         palyed = true;
@@ -64,7 +68,6 @@ public class ActorTimeLine {
                     if (timeTemp>=endTime - startTime){
                         vla = false;
                         if (pianoKey!=null){
-                            System.out.println(SoundKeyMap.indexToAG.get((note.getKey() - 20)+""));
                             pianoKey.finishTouchi();
                         }
                     }
@@ -144,5 +147,12 @@ public class ActorTimeLine {
     private PianoKey pianoKey;
     public void setPianoKey(PianoKey pianoKey) {
         this.pianoKey = pianoKey;
+    }
+
+    private float offSet;
+    private int paNum;
+    public void setNum(float v) {
+        paNum = Math.round(v);
+        offSet = (v - paNum);
     }
 }

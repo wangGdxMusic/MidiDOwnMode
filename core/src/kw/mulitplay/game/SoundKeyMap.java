@@ -137,6 +137,12 @@ public class SoundKeyMap {
         AGToResouce.put("b4",path+"87"+".mp3");
         AGToResouce.put("c5",path+"88"+".mp3");
     }
+
+
+
+
+
+
     static {
         indexToAG.put("1",   "A2"           );
         indexToAG.put("3",   "B2"           );

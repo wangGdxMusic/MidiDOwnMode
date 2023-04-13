@@ -50,13 +50,11 @@ public class MidiUtils {
         int index=0;
         float bpms = 0;
         int count = 0;
+        System.out.println(sequence.getTracks().length);
         for (Track track : sequence.getTracks()){
             noteList.clear();
             long[] buffer = new long[200];
             Arrays.fill(buffer, -1);
-
-            System.out.println("----------------------------");
-            float tas = -1;
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
                 MidiMessage message = event.getMessage();
@@ -84,7 +82,7 @@ public class MidiUtils {
                             if (buffer[key] == EMPTY) {
                                 buffer[key] = tick;
                             } else {
-                                System.err.println("Invalid MIDI File! Note is already on.");
+//                                System.err.println("Invalid MIDI File! Note is already on.");
                             }
                             break;
                         }
@@ -95,18 +93,18 @@ public class MidiUtils {
                                 Note note = new Note(key-20, timestamp, tick - timestamp,index);
                                 noteList.add(note);
                             } else {
-                                System.err.println("Invalid MIDI File! Note off when it isn't on.");
+//                                System.err.println("Invalid MIDI File! Note off when it isn't on.");
                             }
                             break;
                         }
                         default: {
-                            System.err.println("Unhandled Command: " + sm.getCommand());
+//                            System.err.println("Unhandled Command: " + sm.getCommand());
                             break;
                         }
                     }
                 } else {
-                    System.out.print("Unhandled Midi message: ");
-                    System.out.println(message);
+//                    System.out.print("Unhandled Midi message: ");
+//                    System.out.println(message);
                 }
             }
             if (noteList.size()>0) {

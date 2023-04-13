@@ -5,9 +5,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -24,7 +22,6 @@ import com.kw.gdx.asset.Asset;
 
 import java.awt.Dialog;
 import java.awt.FileDialog;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -33,14 +30,13 @@ import javax.sound.midi.MidiUnavailableException;
 
 import kw.mulitplay.game.AssetLoadFile;
 import kw.mulitplay.game.ColorUtils;
-import kw.mulitplay.game.SoundKeyMap;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.constant.LevelConfig;
+import kw.mulitplay.game.drawpanioline.manager.ItemManager;
+import kw.mulitplay.game.drawpanioline.view.PerPaItemNote;
 import kw.mulitplay.game.group.InsturmentItem;
 import kw.mulitplay.game.group.PianoKey;
 import kw.mulitplay.game.group.PianoView;
-import kw.mulitplay.game.group.PuziView;
-import kw.mulitplay.game.midi.gamemode.ModeController;
 import kw.mulitplay.game.midi.handler.Channel;
 import kw.mulitplay.game.midi.handler.MidiInstruments;
 import kw.mulitplay.game.midi.handler.MidiUtils;
@@ -55,15 +51,17 @@ public class DIMIDemoScreen extends BaseScreen {
     private int resolution;
     private Array<ActorTimeLine> disposeNode;
     private Array<ActorTimeLine> actorTimeLines;
+    private Array<Actor> paLines;
     Group srollPanel;
     private Image bg;
-    private Array<Image> aa = new Array<>();
     private float v;
     private float timeToatal = -4;
+    private ScrollPane scrollPane;
     public DIMIDemoScreen(){
         channelArray = new Array<>();
         disposeNode = new Array<>();
         actorTimeLines = new Array<>();
+        paLines = new Array<>();
     }
 
     @Override
@@ -131,14 +129,17 @@ public class DIMIDemoScreen extends BaseScreen {
         HashMap<Integer, PianoKey> pos = view.getPos();
         float maxHeight = 0;
         float maxTime = 0;
+
+
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             Image image = actorTimeLine.getImage();
-            image.setY(actorTimeLine.getStartTime()*200+700);
+            float v = actorTimeLine.getStartTime() * 200;
+            image.setY(v + 700);
+//            actorTimeLine.setNum(v / perHeight);
             image.setHeight(200*(actorTimeLine.getEndTime() - actorTimeLine.getStartTime()));
             srollPanel.addActor(image);
             image.setWidth(30);
             image.setColor(ColorUtils.array.get(actorTimeLine.getNote().getKey()));
-            System.out.println(actorTimeLine.getNote().getKey());
             PianoKey vector2 = pos.get(actorTimeLine.getNote().getKey());
             actorTimeLine.setPianoKey(vector2);
             image.setX(vector2.getX());
@@ -147,6 +148,7 @@ public class DIMIDemoScreen extends BaseScreen {
         }
         float perHeight = (60.0f / Constant.bpm) * 200;
         float lineNum = maxHeight / perHeight;
+
         for (int i = 0; i < lineNum; i++) {
             Image image  = new Image(Asset.getAsset().getTexture("main/float.png"));
             image.setHeight(3);
@@ -154,10 +156,21 @@ public class DIMIDemoScreen extends BaseScreen {
             image.setY(i * perHeight + 700);
             image.setColor(Color.BLACK);
             srollPanel.addActor(image);
-            aa.add(image);
+            paLines.add(image);
+            Label paNum = new Label("",new Label.LabelStyle(){{
+                font = AssetLoadFile.getBR40();
+            }});
+            paNum.setColor(Color.BLACK);
+            paNum.setY(image.getY() + perHeight/2,Align.center);
+            paNum.setText(i+"");
+            srollPanel.addActor(paNum);
+            paLines.add(paNum);
         }
 
-        System.out.println(maxHeight +"  "+ maxTime);
+        for (ActorTimeLine actorTimeLine : actorTimeLines) {
+            actorTimeLine.setNum((actorTimeLine.getImage().getY() - 700) / perHeight);
+        }
+
         this.v = maxHeight / maxTime;
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             actorTimeLine.setMoveDistance(this.v);
@@ -197,7 +210,7 @@ public class DIMIDemoScreen extends BaseScreen {
                     String fileName = dialog.getFile();
                     try {
                         if (directory!=null && fileName!=null){
-                            System.out.println(directory +" "+fileName);
+//                            System.out.println(directory +" "+fileName);
                             bg.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.absolute(directory+fileName)))));
                             bg.setSize(Constant.width - 500,Constant.height);
                         }
@@ -208,8 +221,22 @@ public class DIMIDemoScreen extends BaseScreen {
                 }
             });
         }});
-
-
+        Table tableItem = new Table();
+        scrollPane = new ScrollPane(tableItem);
+        scrollPane.addAction(Actions.forever(Actions.run(()->{
+            scrollPane.setScrollX(scrollPane.getScrollX() + 10);
+        })));
+        scrollPane.setWidth(Constant.width/2);
+        scrollPane.setHeight(500);
+        stage.addActor(scrollPane);
+        scrollPane.setY(300);
+        tableItem.align(Align.left);
+        for (int i = 0; i < 2; i++) {
+            Group baseGroup = new PerPaItemNote();
+            tableItem.add(baseGroup);
+            tableItem.pack();
+        }
+        new ItemManager(tableItem);
     }
 
 
@@ -241,11 +268,10 @@ public class DIMIDemoScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
         timeToatal += delta;
-        System.out.println(timeToatal);
         for (ActorTimeLine actorTimeLine : actorTimeLines) {
             actorTimeLine.moveDown(delta);
         }
-        for (Image image : aa) {
+        for (Actor image : paLines) {
             image.setY(image.getY() - delta * v);
         }
         for (ActorTimeLine actorTimeLine : actorTimeLines) {

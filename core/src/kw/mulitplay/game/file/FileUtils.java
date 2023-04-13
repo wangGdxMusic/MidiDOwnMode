@@ -19,6 +19,7 @@ public class FileUtils {
     public static FileUtils getFileUtils() {
         if (fileUtils == null){
             fileUtils = new FileUtils();
+            handle.writeString("",false);
         }
         return fileUtils;
     }

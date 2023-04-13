@@ -29,6 +29,7 @@ public class Note {
     private final long length;
     private int num;
     private int bpm;
+    private int trackindex;
     //1-88
     //22 - 110
     Note(int key, long timestamp, long length,int num) {
@@ -36,6 +37,14 @@ public class Note {
         this.key = key;
         this.timestamp = timestamp;
         this.length = length;
+    }
+
+    public void setTrackindex(int trackindex) {
+        this.trackindex = trackindex;
+    }
+
+    public int getTrackindex() {
+        return trackindex;
     }
 
     public void setBpm(int bpm) {
