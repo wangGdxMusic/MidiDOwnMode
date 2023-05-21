@@ -1,9 +1,12 @@
 package kw.mulitplay.game.screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kw.gdx.asset.Asset;
+
+import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.screen.base.BaseScreen;
 
 public class MainScreen extends BaseScreen {
@@ -34,12 +37,14 @@ public class MainScreen extends BaseScreen {
                     enterScreen(new DIMIDemoScreen());
                 }
             });
-            add(btn1);
-            add(btn2);
-            add(btn3);
+            add(btn1).padLeft(20).padRight(20);
+            add(btn2).padLeft(20).padRight(20);
+            add(btn3).padLeft(20).padRight(20);
             pack();
         }};
-        stage.addActor(panel);
+        ScrollPane pane = new ScrollPane(panel,new ScrollPane.ScrollPaneStyle());
+        pane.setSize(Constant.width,Constant.height);
+        stage.addActor(pane);
     }
 
     @Override
