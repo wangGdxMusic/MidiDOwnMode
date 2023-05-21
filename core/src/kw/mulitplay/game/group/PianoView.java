@@ -4,9 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import java.util.HashMap;
-
-import kw.mulitplay.game.ColorUtils;
 import kw.mulitplay.game.callback.CallBack;
+import kw.mulitplay.game.utils.ColorUtils;
 
 public class PianoView extends Group {
     private HashMap<String,PianoKey> hashMap;

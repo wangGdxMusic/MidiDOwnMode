@@ -29,7 +29,6 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiUnavailableException;
 
 import kw.mulitplay.game.asset.AssetLoadFile;
-import kw.mulitplay.game.ColorUtils;
 import kw.mulitplay.game.constant.Constant;
 import kw.mulitplay.game.constant.LevelConfig;
 import kw.mulitplay.game.drawpanioline.manager.ItemManager;
@@ -43,6 +42,7 @@ import kw.mulitplay.game.midi.handler.Note;
 import kw.mulitplay.game.midi.handler.Sheet;
 import kw.mulitplay.game.screen.base.BaseScreen;
 import kw.mulitplay.game.time.ActorTimeLine;
+import kw.mulitplay.game.utils.ColorUtils;
 
 public class DIMIDemoScreen extends BaseScreen {
     private Array<Channel> channelArray;
